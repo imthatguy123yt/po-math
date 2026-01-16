@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My GitHub Games</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #020617;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    .sidebar button {
+      width: 100%;
+      margin-bottom: 8px;
+      padding: 10px;
+      background: #1e293b;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .sidebar button:hover {
+      background: #334155;
+    }
+
+    /* Game area */
+    .game-container {
+      flex: 1;
+      background: black;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <button onclick="loadGame('https://kirbscozycavern.neocities.org/blockblast')">
+      Block Blast
+    </button>
+
+    <button onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyAW2mW4PFWaL-rMtDJgqiwL0OxsMwtBoiaFgeS_p0_f6VesYcbHDBlxoVBylXcwWrJGg/exec')">
+      Learn to Fly 1
+    </button>
+
+    <!-- Placeholders -->
+    <button onclick="loadGame('about:blank')">Game 3</button>
+    <button onclick="loadGame('about:blank')">Game 4</button>
+    <button onclick="loadGame('about:blank')">Game 5</button>
+    <button onclick="loadGame('about:blank')">Game 6</button>
+    <button onclick="loadGame('about:blank')">Game 7</button>
+    <button onclick="loadGame('about:blank')">Game 8</button>
+    <button onclick="loadGame('about:blank')">Game 9</button>
+    <button onclick="loadGame('about:blank')">Game 10</button>
+    <button onclick="loadGame('about:blank')">Game 11</button>
+    <button onclick="loadGame('about:blank')">Game 12</button>
+  </div>
+
+  <div class="game-container">
+    <iframe id="gameFrame" src=""></iframe>
+  </div>
+
+  <script>
+    function loadGame(url) {
+      document.getElementById("gameFrame").src = url;
+    }
+  </script>
+
+</body>
+</html>
