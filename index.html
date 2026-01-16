@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>My GitHub Games</title>
+  <link rel="icon" href="https://www.google.com/favicon.ico">
 
   <style>
     body {
@@ -13,8 +14,7 @@
       height: 100vh;
     }
 
-    /* ============== GRID TOP BAR ============== */
-
+    /* ===== GRID TOP BAR ===== */
     .grid-top-bar {
       height: 48px;
       background: #020617;
@@ -44,8 +44,7 @@
       background: #334155;
     }
 
-    /* ================= GRID VIEW ================= */
-
+    /* ===== GRID VIEW ===== */
     .grid-wrapper {
       height: 100vh;
       display: flex;
@@ -70,7 +69,6 @@
       min-height: 280px;
       display: flex;
       flex-direction: column;
-      color: white;
       position: relative;
       overflow: hidden;
       transition: transform 0.12s ease, box-shadow 0.12s ease;
@@ -78,9 +76,8 @@
 
     .game-btn:hover {
       transform: translateY(-4px) scale(1.03);
-      box-shadow:
-        0 0 18px rgba(56, 189, 248, 0.45),
-        0 0 35px rgba(56, 189, 248, 0.25);
+      box-shadow: 0 0 18px rgba(56,189,248,0.45),
+                  0 0 35px rgba(56,189,248,0.25);
     }
 
     .game-btn:active {
@@ -120,17 +117,15 @@
 
     .game-title {
       height: 16%;
-      background: rgba(2, 6, 23, 0.95);
+      background: rgba(2,6,23,0.95);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 17px;
       font-weight: bold;
-      text-align: center;
     }
 
-    /* ================= GAME VIEW ================= */
-
+    /* ===== GAME VIEW ===== */
     .game-view {
       display: none;
       flex-direction: column;
@@ -173,92 +168,157 @@
       height: 100%;
       border: none;
     }
+
+    /* ===== MODALS ===== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-box {
+      background: #020617;
+      padding: 20px;
+      border-radius: 14px;
+      width: 280px;
+      text-align: center;
+    }
+
+    .modal-box input {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+    }
+
+    .settings-btn {
+      width: 100%;
+      padding: 8px;
+      background: #1e293b;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+
+    .settings-btn:hover {
+      background: #334155;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
-  <!-- ================= GRID VIEW ================= -->
-  <div class="grid-wrapper" id="grid">
-
-    <div class="grid-top-bar">
-      <button class="icon-btn" onclick="refreshPage()" title="Refresh">⟳</button>
-      <button class="icon-btn" onclick="openSettings()" title="Settings">⚙</button>
-    </div>
-
-    <div class="game-grid">
-
-      <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/blockblast')">
-        <img src="game1.png">
-        <div class="game-title">Block Blast</div>
-      </button>
-
-      <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyAW2mW4PFWaL-rMtDJgqiwL0OxsMwtBoiaFgeS_p0_f6VesYcbHDBlxoVBylXcwWrJGg/exec')">
-        <img src="game2.png">
-        <div class="game-title">Learn to Fly 1</div>
-      </button>
-
-      <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyQ8tw1lAF6zuhWGKqG4hys1Jyw2DEPVK8VapKP-BZsAPqvrRgYThV1bPpT7MYzj3kdHw/exec')">
-        <img src="game4.png">
-        <div class="game-title">Learn to Fly 2</div>
-      </button>
-
-      <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbz8B4YTMrlWe7ul3V8pbgwG4vISWcoX71Y165LYedQWooJtMs8Ox3A9vyXUhEjCiqL-/exec')">
-        <img src="game5.png">
-        <div class="game-title">Learn to Fly 3</div>
-      </button>
-
-      <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/trex')">
-        <img src="game3.png">
-        <div class="game-title">Dinosaur Game</div>
-      </button>
-
-      <button class="game-btn" onclick="loadGame('about:blank')">
-        <img src="game6.png">
-        <div class="game-title">Game 6</div>
-      </button>
-
-    </div>
+<!-- ===== GRID VIEW ===== -->
+<div class="grid-wrapper" id="grid">
+  <div class="grid-top-bar">
+    <button class="icon-btn" onclick="location.reload()">⟳</button>
+    <button class="icon-btn" onclick="openSettings()">⚙</button>
   </div>
 
-  <!-- ================= GAME VIEW ================= -->
-  <div class="game-view" id="gameView">
+  <div class="game-grid">
+    <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/blockblast')">
+      <img src="game1.png"><div class="game-title">Block Blast</div>
+    </button>
 
-    <div class="top-bar">
-      <button onclick="toggleMute()">Mute</button>
-      <button onclick="goBack()">Go Back</button>
-    </div>
+    <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyAW2mW4PFWaL-rMtDJgqiwL0OxsMwtBoiaFgeS_p0_f6VesYcbHDBlxoVBylXcwWrJGg/exec')">
+      <img src="game2.png"><div class="game-title">Learn to Fly 1</div>
+    </button>
 
-    <div class="game-container">
-      <iframe id="gameFrame"></iframe>
-    </div>
+    <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyQ8tw1lAF6zuhWGKqG4hys1Jyw2DEPVK8VapKP-BZsAPqvrRgYThV1bPpT7MYzj3kdHw/exec')">
+      <img src="game4.png"><div class="game-title">Learn to Fly 2</div>
+    </button>
 
+    <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbz8B4YTMrlWe7ul3V8pbgwG4vISWcoX71Y165LYedQWooJtMs8Ox3A9vyXUhEjCiqL-/exec')">
+      <img src="game5.png"><div class="game-title">Learn to Fly 3</div>
+    </button>
+
+    <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/trex')">
+      <img src="game3.png"><div class="game-title">Dinosaur Game</div>
+    </button>
+
+    <button class="game-btn" onclick="loadGame('about:blank')">
+      <img src="game6.png"><div class="game-title">Game 6</div>
+    </button>
   </div>
+</div>
 
-  <script>
-    function loadGame(url) {
-      document.getElementById("grid").style.display = "none";
-      document.getElementById("gameView").style.display = "flex";
-      document.getElementById("gameFrame").src = url;
-    }
+<!-- ===== GAME VIEW ===== -->
+<div class="game-view" id="gameView">
+  <div class="top-bar">
+    <button onclick="goBack()">Go Back</button>
+  </div>
+  <div class="game-container">
+    <iframe id="gameFrame"></iframe>
+  </div>
+</div>
 
-    function goBack() {
-      document.getElementById("gameView").style.display = "none";
-      document.getElementById("grid").style.display = "flex";
-      document.getElementById("gameFrame").src = "";
-    }
+<!-- ===== SETTINGS MODALS ===== -->
+<div class="modal" id="settingsModal">
+  <div class="modal-box">
+    <h3>Settings</h3>
+    <button class="settings-btn" onclick="openCloak()">Tab Cloak</button>
+    <button class="close-btn" onclick="closeSettings()">Close</button>
+  </div>
+</div>
 
-    function toggleMute() {
-      // depends on game
-    }
+<div class="modal" id="cloakModal">
+  <div class="modal-box">
+    <h3>Tab Cloak</h3>
+    <input id="cloakInput" placeholder="Tab name (e.g. Google Docs)">
+    <button class="settings-btn" onclick="applyCloak()">Apply</button>
+    <button class="close-btn" onclick="closeCloak()">Cancel</button>
+  </div>
+</div>
 
-    function refreshPage() {
-      location.reload();
-    }
+<script>
+  function loadGame(url) {
+    grid.style.display = "none";
+    gameView.style.display = "flex";
+    gameFrame.src = url;
+  }
 
-    function openSettings() {
-      alert("Settings coming soon!");
-    }
-  </script>
+  function goBack() {
+    gameView.style.display = "none";
+    grid.style.display = "flex";
+    gameFrame.src = "";
+  }
+
+  function openSettings() {
+    settingsModal.style.display = "flex";
+  }
+
+  function closeSettings() {
+    settingsModal.style.display = "none";
+  }
+
+  function openCloak() {
+    closeSettings();
+    cloakModal.style.display = "flex";
+  }
+
+  function closeCloak() {
+    cloakModal.style.display = "none";
+  }
+
+  function applyCloak() {
+    const name = cloakInput.value;
+    if (name) document.title = name;
+    closeCloak();
+  }
+</script>
 
 </body>
 </html>
