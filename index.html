@@ -11,11 +11,10 @@
       background: #0f172a;
       color: white;
       height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
-    /* Game button grid */
+    /* ================= GRID VIEW ================= */
+
     .game-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -23,30 +22,23 @@
       gap: 18px;
       padding: 20px;
       background: #020617;
+      height: 100vh;
     }
 
-    /* Game button (card) */
     .game-btn {
       background: #020617;
       border: none;
       border-radius: 18px;
       cursor: pointer;
-
       min-height: 280px;
-
       display: flex;
       flex-direction: column;
-
       color: white;
       position: relative;
       overflow: hidden;
-
-      transition:
-        transform 0.12s ease,
-        box-shadow 0.12s ease;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
-    /* Hover glow + lift */
     .game-btn:hover {
       transform: translateY(-4px) scale(1.03);
       box-shadow:
@@ -54,12 +46,10 @@
         0 0 35px rgba(56, 189, 248, 0.25);
     }
 
-    /* Click press */
     .game-btn:active {
       transform: scale(0.97);
     }
 
-    /* Shine sweep */
     .game-btn::before {
       content: "";
       position: absolute;
@@ -70,7 +60,7 @@
       background: linear-gradient(
         120deg,
         transparent,
-        rgba(255, 255, 255, 0.25),
+        rgba(255,255,255,0.25),
         transparent
       );
       transform: rotate(25deg);
@@ -85,15 +75,12 @@
       to { left: 130%; }
     }
 
-    /* Image fills most of card */
     .game-btn img {
       width: 100%;
       height: 84%;
       object-fit: cover;
-      display: block;
     }
 
-    /* Bottom title bar (1/6) */
     .game-title {
       height: 16%;
       background: rgba(2, 6, 23, 0.95);
@@ -102,10 +89,42 @@
       justify-content: center;
       font-size: 17px;
       font-weight: bold;
-      text-align: center;
     }
 
-    /* Game area */
+    /* ================= GAME VIEW ================= */
+
+    .game-view {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+      background: black;
+    }
+
+    .top-bar {
+      height: 50px;
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 0 15px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .top-bar button {
+      background: #1e293b;
+      border: none;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .top-bar button:hover {
+      background: #334155;
+    }
+
     .game-container {
       flex: 1;
       background: black;
@@ -120,8 +139,8 @@
 </head>
 <body>
 
-  <!-- Game Buttons -->
-  <div class="game-grid">
+  <!-- GRID VIEW -->
+  <div class="game-grid" id="grid">
 
     <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/blockblast')">
       <img src="game1.png">
@@ -138,61 +157,50 @@
       <div class="game-title">Dinosaur Game</div>
     </button>
 
-    <button class="game-btn" onclick="loadGame('about:blank')">
-      <img src="game4.png">
-      <div class="game-title">Game 4</div>
-    </button>
-
-    <button class="game-btn" onclick="loadGame('about:blank')">
-      <img src="game5.png">
-      <div class="game-title">Game 5</div>
-    </button>
-
-    <button class="game-btn" onclick="loadGame('about:blank')">
-      <img src="game6.png">
-      <div class="game-title">Game 6</div>
-    </button>
-
-    <button class="game-btn" onclick="loadGame('about:blank')">
-      <img src="game7.png">
-      <div class="game-title">Game 7</div>
-    </button>
-
-    <button class="game-btn" onclick="loadGame('about:blank')">
-      <img src="game8.png">
-      <div class="game-title">Game 8</div>
-    </button>
-
-    <button class="game-btn" onclick="loadGame('about:blank')">
-      <img src="game9.png">
-      <div class="game-title">Game 9</div>
-    </button>
-
-    <button class="game-btn" onclick="loadGame('about:blank')">
-      <img src="game10.png">
-      <div class="game-title">Game 10</div>
-    </button>
-
-    <button class="game-btn" onclick="loadGame('about:blank')">
-      <img src="game11.png">
-      <div class="game-title">Game 11</div>
-    </button>
-
-    <button class="game-btn" onclick="loadGame('about:blank')">
-      <img src="game12.png">
-      <div class="game-title">Game 12</div>
-    </button>
-
+    <!-- add more buttons as needed -->
   </div>
 
-  <!-- Game Display -->
-  <div class="game-container">
-    <iframe id="gameFrame"></iframe>
+  <!-- GAME VIEW -->
+  <div class="game-view" id="gameView">
+
+    <div class="top-bar">
+      <button onclick="toggleMute()">Mute</button>
+      <button onclick="goBack()">Go Back</button>
+    </div>
+
+    <div class="game-container">
+      <iframe id="gameFrame"></iframe>
+    </div>
+
   </div>
 
   <script>
+    let muted = false;
+
     function loadGame(url) {
+      document.getElementById("grid").style.display = "none";
+      document.getElementById("gameView").style.display = "flex";
       document.getElementById("gameFrame").src = url;
+    }
+
+    function goBack() {
+      document.getElementById("gameView").style.display = "none";
+      document.getElementById("grid").style.display = "grid";
+      document.getElementById("gameFrame").src = "";
+    }
+
+    function toggleMute() {
+      const iframe = document.getElementById("gameFrame");
+      muted = !muted;
+
+      try {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: "command", func: muted ? "mute" : "unmute" }),
+          "*"
+        );
+      } catch (e) {
+        console.log("Mute may not work for this game");
+      }
     }
   </script>
 
