@@ -89,6 +89,7 @@
       justify-content: center;
       font-size: 17px;
       font-weight: bold;
+      text-align: center;
     }
 
     /* ================= GAME VIEW ================= */
@@ -139,7 +140,7 @@
 </head>
 <body>
 
-  <!-- GRID VIEW -->
+  <!-- ================= GRID VIEW ================= -->
   <div class="game-grid" id="grid">
 
     <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/blockblast')">
@@ -152,15 +153,29 @@
       <div class="game-title">Learn to Fly 1</div>
     </button>
 
+    <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyQ8tw1lAF6zuhWGKqG4hys1Jyw2DEPVK8VapKP-BZsAPqvrRgYThV1bPpT7MYzj3kdHw/exec')">
+      <img src="game4.png">
+      <div class="game-title">Learn to Fly 2</div>
+    </button>
+
+    <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbz8B4YTMrlWe7ul3V8pbgwG4vISWcoX71Y165LYedQWooJtMs8Ox3A9vyXUhEjCiqL-/exec')">
+      <img src="game5.png">
+      <div class="game-title">Learn to Fly 3</div>
+    </button>
+
     <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/trex')">
       <img src="game3.png">
       <div class="game-title">Dinosaur Game</div>
     </button>
 
-    <!-- add more buttons as needed -->
+    <button class="game-btn" onclick="loadGame('about:blank')">
+      <img src="game6.png">
+      <div class="game-title">Game 6</div>
+    </button>
+
   </div>
 
-  <!-- GAME VIEW -->
+  <!-- ================= GAME VIEW ================= -->
   <div class="game-view" id="gameView">
 
     <div class="top-bar">
@@ -190,17 +205,8 @@
     }
 
     function toggleMute() {
-      const iframe = document.getElementById("gameFrame");
       muted = !muted;
-
-      try {
-        iframe.contentWindow.postMessage(
-          JSON.stringify({ event: "command", func: muted ? "mute" : "unmute" }),
-          "*"
-        );
-      } catch (e) {
-        console.log("Mute may not work for this game");
-      }
+      // Mute support depends on the embedded game
     }
   </script>
 
