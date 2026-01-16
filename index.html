@@ -10,47 +10,51 @@
       font-family: Arial, sans-serif;
       background: #0f172a;
       color: white;
-      display: flex;
       height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Sidebar */
-    .sidebar {
-      width: 260px;
+    /* Game button grid */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 15px;
+      padding: 20px;
       background: #020617;
-      padding: 10px;
-      overflow-y: auto;
     }
 
     .game-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
       background: #1e293b;
       border: none;
-      color: white;
+      border-radius: 12px;
       cursor: pointer;
-      border-radius: 8px;
-      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: white;
+      transition: transform 0.15s ease, background 0.15s ease;
     }
 
     .game-btn:hover {
       background: #334155;
+      transform: scale(1.03);
     }
 
     .game-btn img {
-      width: 50px;
-      height: 50px;
+      width: 80px;
+      height: 80px;
       object-fit: cover;
-      border-radius: 6px;
+      border-radius: 10px;
     }
 
     .game-title {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: bold;
+      text-align: center;
     }
 
     /* Game area */
@@ -68,77 +72,72 @@
 </head>
 <body>
 
-  <div class="sidebar">
+  <!-- Game Buttons -->
+  <div class="game-grid">
 
-    <!-- Game 1 -->
-    <button class="game-btn"
-      onclick="loadGame('https://kirbscozycavern.neocities.org/blockblast')">
-      <img src="game1.png" alt="Block Blast">
-      <span class="game-title">Block Blast</span>
+    <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/blockblast')">
+      <img src="game1.png">
+      <div class="game-title">Block Blast</div>
     </button>
 
-    <!-- Game 2 -->
-    <button class="game-btn"
-      onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyAW2mW4PFWaL-rMtDJgqiwL0OxsMwtBoiaFgeS_p0_f6VesYcbHDBlxoVBylXcwWrJGg/exec')">
-      <img src="game2.png" alt="Learn to Fly 1">
-      <span class="game-title">Learn to Fly 1</span>
+    <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyAW2mW4PFWaL-rMtDJgqiwL0OxsMwtBoiaFgeS_p0_f6VesYcbHDBlxoVBylXcwWrJGg/exec')">
+      <img src="game2.png">
+      <div class="game-title">Learn to Fly 1</div>
     </button>
 
-    <!-- Game 3 -->
-    <button class="game-btn"
-      onclick="loadGame('https://kirbscozycavern.neocities.org/trex')">
-      <img src="game3.png" alt="Dinosaur Game">
-      <span class="game-title">Dinosaur Game</span>
+    <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/trex')">
+      <img src="game3.png">
+      <div class="game-title">Dinosaur Game</div>
     </button>
 
-    <!-- Placeholders -->
     <button class="game-btn" onclick="loadGame('about:blank')">
       <img src="game4.png">
-      <span class="game-title">Game 4</span>
+      <div class="game-title">Game 4</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('about:blank')">
       <img src="game5.png">
-      <span class="game-title">Game 5</span>
+      <div class="game-title">Game 5</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('about:blank')">
       <img src="game6.png">
-      <span class="game-title">Game 6</span>
+      <div class="game-title">Game 6</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('about:blank')">
       <img src="game7.png">
-      <span class="game-title">Game 7</span>
+      <div class="game-title">Game 7</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('about:blank')">
       <img src="game8.png">
-      <span class="game-title">Game 8</span>
+      <div class="game-title">Game 8</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('about:blank')">
       <img src="game9.png">
-      <span class="game-title">Game 9</span>
+      <div class="game-title">Game 9</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('about:blank')">
       <img src="game10.png">
-      <span class="game-title">Game 10</span>
+      <div class="game-title">Game 10</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('about:blank')">
       <img src="game11.png">
-      <span class="game-title">Game 11</span>
+      <div class="game-title">Game 11</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('about:blank')">
       <img src="game12.png">
-      <span class="game-title">Game 12</span>
+      <div class="game-title">Game 12</div>
     </button>
 
   </div>
 
+  <!-- Game Display -->
   <div class="game-container">
     <iframe id="gameFrame"></iframe>
   </div>
