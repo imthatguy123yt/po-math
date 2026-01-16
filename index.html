@@ -13,16 +13,53 @@
       height: 100vh;
     }
 
+    /* ============== GRID TOP BAR ============== */
+
+    .grid-top-bar {
+      height: 48px;
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      padding: 0 16px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .icon-btn {
+      background: #1e293b;
+      border: none;
+      color: white;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-btn:hover {
+      background: #334155;
+    }
+
     /* ================= GRID VIEW ================= */
 
+    .grid-wrapper {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
     .game-grid {
+      flex: 1;
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       grid-template-rows: repeat(2, 1fr);
       gap: 18px;
       padding: 20px;
       background: #020617;
-      height: 100vh;
     }
 
     .game-btn {
@@ -141,38 +178,46 @@
 <body>
 
   <!-- ================= GRID VIEW ================= -->
-  <div class="game-grid" id="grid">
+  <div class="grid-wrapper" id="grid">
 
-    <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/blockblast')">
-      <img src="game1.png">
-      <div class="game-title">Block Blast</div>
-    </button>
+    <div class="grid-top-bar">
+      <button class="icon-btn" onclick="refreshPage()" title="Refresh">⟳</button>
+      <button class="icon-btn" onclick="openSettings()" title="Settings">⚙</button>
+    </div>
 
-    <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyAW2mW4PFWaL-rMtDJgqiwL0OxsMwtBoiaFgeS_p0_f6VesYcbHDBlxoVBylXcwWrJGg/exec')">
-      <img src="game2.png">
-      <div class="game-title">Learn to Fly 1</div>
-    </button>
+    <div class="game-grid">
 
-    <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyQ8tw1lAF6zuhWGKqG4hys1Jyw2DEPVK8VapKP-BZsAPqvrRgYThV1bPpT7MYzj3kdHw/exec')">
-      <img src="game4.png">
-      <div class="game-title">Learn to Fly 2</div>
-    </button>
+      <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/blockblast')">
+        <img src="game1.png">
+        <div class="game-title">Block Blast</div>
+      </button>
 
-    <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbz8B4YTMrlWe7ul3V8pbgwG4vISWcoX71Y165LYedQWooJtMs8Ox3A9vyXUhEjCiqL-/exec')">
-      <img src="game5.png">
-      <div class="game-title">Learn to Fly 3</div>
-    </button>
+      <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyAW2mW4PFWaL-rMtDJgqiwL0OxsMwtBoiaFgeS_p0_f6VesYcbHDBlxoVBylXcwWrJGg/exec')">
+        <img src="game2.png">
+        <div class="game-title">Learn to Fly 1</div>
+      </button>
 
-    <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/trex')">
-      <img src="game3.png">
-      <div class="game-title">Dinosaur Game</div>
-    </button>
+      <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyQ8tw1lAF6zuhWGKqG4hys1Jyw2DEPVK8VapKP-BZsAPqvrRgYThV1bPpT7MYzj3kdHw/exec')">
+        <img src="game4.png">
+        <div class="game-title">Learn to Fly 2</div>
+      </button>
 
-    <button class="game-btn" onclick="loadGame('about:blank')">
-      <img src="game6.png">
-      <div class="game-title">Game 6</div>
-    </button>
+      <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbz8B4YTMrlWe7ul3V8pbgwG4vISWcoX71Y165LYedQWooJtMs8Ox3A9vyXUhEjCiqL-/exec')">
+        <img src="game5.png">
+        <div class="game-title">Learn to Fly 3</div>
+      </button>
 
+      <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/trex')">
+        <img src="game3.png">
+        <div class="game-title">Dinosaur Game</div>
+      </button>
+
+      <button class="game-btn" onclick="loadGame('about:blank')">
+        <img src="game6.png">
+        <div class="game-title">Game 6</div>
+      </button>
+
+    </div>
   </div>
 
   <!-- ================= GAME VIEW ================= -->
@@ -190,8 +235,6 @@
   </div>
 
   <script>
-    let muted = false;
-
     function loadGame(url) {
       document.getElementById("grid").style.display = "none";
       document.getElementById("gameView").style.display = "flex";
@@ -200,13 +243,20 @@
 
     function goBack() {
       document.getElementById("gameView").style.display = "none";
-      document.getElementById("grid").style.display = "grid";
+      document.getElementById("grid").style.display = "flex";
       document.getElementById("gameFrame").src = "";
     }
 
     function toggleMute() {
-      muted = !muted;
-      // Mute support depends on the embedded game
+      // depends on game
+    }
+
+    function refreshPage() {
+      location.reload();
+    }
+
+    function openSettings() {
+      alert("Settings coming soon!");
     }
   </script>
 
