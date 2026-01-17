@@ -76,8 +76,9 @@
 
     .game-btn:hover {
       transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 0 18px rgba(56,189,248,0.45),
-                  0 0 35px rgba(56,189,248,0.25);
+      box-shadow:
+        0 0 18px rgba(56,189,248,0.45),
+        0 0 35px rgba(56,189,248,0.25);
     }
 
     .game-btn:active {
@@ -123,6 +124,7 @@
       justify-content: center;
       font-size: 17px;
       font-weight: bold;
+      text-align: center;
     }
 
     /* ===== GAME VIEW ===== */
@@ -249,8 +251,9 @@
       <img src="game3.png"><div class="game-title">Dinosaur Game</div>
     </button>
 
-    <button class="game-btn" onclick="loadGame('about:blank')">
-      <img src="game6.png"><div class="game-title">Game 6</div>
+    <!-- ✅ NEW GAME -->
+    <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/stack')">
+      <img src="game6.png"><div class="game-title">Stack</div>
     </button>
   </div>
 </div>
