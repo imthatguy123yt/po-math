@@ -13,6 +13,7 @@ body{
   overflow:hidden;
 }
 
+/* Top bar */
 .top-bar{
   display:flex;
   align-items:center;
@@ -21,6 +22,7 @@ body{
   background:#1e293b;
 }
 
+/* Buttons */
 button{
   background:#334155;
   color:white;
@@ -28,10 +30,14 @@ button{
   border-radius:6px;
   padding:6px 10px;
   cursor:pointer;
+  transition:.2s;
 }
 
-button:hover{background:#3b4c66;}
+button:hover{
+  background:#3b4c66;
+}
 
+/* Game grid */
 .grid{
   display:grid;
   grid-template-columns:repeat(6,1fr);
@@ -39,6 +45,7 @@ button:hover{background:#3b4c66;}
   padding:10px;
 }
 
+/* Individual game buttons */
 .game{
   border-radius:12px;
   overflow:hidden;
@@ -68,6 +75,7 @@ button:hover{background:#3b4c66;}
   background:rgba(0,0,0,.6);
 }
 
+/* Game viewer */
 .viewer{
   display:none;
   flex-direction:column;
@@ -79,6 +87,7 @@ iframe{
   border:none;
 }
 
+/* Modal */
 .modal{
   position:fixed;
   inset:0;
@@ -103,6 +112,41 @@ iframe{
   padding:6px;
   background:#1e293b;
   border:none;
+  color:white;
+}
+
+/* DONE button */
+#doneBtn{
+  position:fixed;
+  top:10px;
+  right:10px;
+  background:#10b981;
+  color:white;
+  padding:10px 14px;
+  border-radius:6px;
+  cursor:pointer;
+  display:none;
+  z-index:10000;
+}
+
+#doneModal{
+  position:fixed;
+  inset:0;
+  display:none;
+  background:rgba(0,0,0,.8);
+  align-items:center;
+  justify-content:center;
+  z-index:10001;
+}
+
+#doneModal textarea{
+  width:90%;
+  height:60%;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  resize:none;
+  background:#1e293b;
   color:white;
 }
 </style>
@@ -134,19 +178,34 @@ iframe{
     <input id="bURL" placeholder="Game URL">
     <input id="bImg" placeholder="Image number (1-12)">
     <button onclick="generateCode()">Generate Code</button>
-    <button onclick="copyCode()">📋 Copy</button>
     <button onclick="closeBuilder()">Close</button>
-    <textarea id="codeOut" readonly></textarea>
+    <textarea id="codeOut" readonly placeholder="Generated code will appear here..."></textarea>
   </div>
 </div>
 
+<!-- DONE button -->
+<div id="doneBtn" onclick="showDoneModal()">✅ DONE</div>
+
+<!-- DONE modal -->
+<div id="doneModal">
+  <textarea id="doneText" readonly></textarea>
+</div>
+
 <script>
+// Elements
 const grid=document.getElementById("grid");
 const viewer=document.getElementById("viewer");
 const frame=document.getElementById("frame");
 const builderModal=document.getElementById("builderModal");
+const codeOut=document.getElementById("codeOut");
+const bName=document.getElementById("bName");
+const bURL=document.getElementById("bURL");
+const bImg=document.getElementById("bImg");
+const doneBtn=document.getElementById("doneBtn");
+const doneModal=document.getElementById("doneModal");
+const doneText=document.getElementById("doneText");
 
-/* Games in root folder images */
+// Games array (images in root)
 const games=[
   {t:"Block Blast",u:"https://kirbscozycavern.neocities.org/blockblast",i:"game1.png"},
   {t:"Learn to Fly 1",u:"https://script.google.com/a/macros/tiftschools.com/s/AKfycbyAW2mW4PFWaL-rMtDJgqiwL0OxsMwtBoiaFgeS_p0_f6VesYcbHDBlxoVBylXcwWrJGg/exec",i:"game2.png"},
@@ -159,7 +218,7 @@ const games=[
   {t:"Minecraft",u:"https://kirbscozycavern.neocities.org/minecraft/EaglercraftX_1.8_u50_Offline_Signed",i:"game9.png"}
 ];
 
-/* Render games */
+// Render grid
 function render(q=""){
   grid.innerHTML="";
   games.filter(g=>g.t.toLowerCase().includes(q.toLowerCase()))
@@ -174,29 +233,65 @@ function render(q=""){
 
 function search(val){render(val);}
 
-/* Play game */
+// Play game
 function play(g){
   grid.style.display="none";
   viewer.style.display="flex";
   frame.src=g.u;
 }
 
+// Back button
 function back(){
   viewer.style.display="none";
   grid.style.display="grid";
   frame.src="";
 }
 
-/* Builder modal */
+// Builder modal
 function openBuilder(){builderModal.style.display="flex";}
 function closeBuilder(){builderModal.style.display="none";}
-function generateCode(){
-  if(!bName.value||!bURL.value||!bImg.value)return;
-  codeOut.value=`{ t:"${bName.value}", u:"${bURL.value}", i:"game${bImg.value}.png" },`;
-}
-function copyCode(){navigator.clipboard.writeText(codeOut.value);}
 
-/* Init */
+// Generate code (append to old code)
+function generateCode(){
+  if(!bName.value||!bURL.value||!bImg.value) return;
+
+  const newCode = `{ t:"${bName.value}", u:"${bURL.value}", i:"game${bImg.value}.png" },`;
+
+  if(codeOut.value.trim()===""){
+    codeOut.value = newCode;
+  } else {
+    codeOut.value += "\n" + newCode;
+  }
+
+  // Show DONE button when at least one game is generated
+  doneBtn.style.display="block";
+
+  // Clear inputs
+  bName.value="";
+  bURL.value="";
+  bImg.value="";
+}
+
+// DONE button function
+function showDoneModal(){
+  doneText.value = codeOut.value;
+  doneModal.style.display="flex";
+}
+
+// Close DONE modal when clicked outside textarea
+doneModal.addEventListener("click",(e)=>{
+  if(e.target===doneModal){
+    doneModal.style.display="none";
+  }
+});
+
+// Copy DONE modal text
+doneText.addEventListener("dblclick",()=>{
+  navigator.clipboard.writeText(doneText.value);
+  alert("Code copied to clipboard!");
+});
+
+// Init
 render();
 </script>
 
