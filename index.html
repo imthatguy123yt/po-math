@@ -14,13 +14,13 @@
       height: 100vh;
     }
 
-    /* ===== GRID TOP BAR ===== */
+    /* ===== TOP BAR (GRID ONLY) ===== */
     .grid-top-bar {
       height: 48px;
       background: #020617;
       display: flex;
-      align-items: center;
       justify-content: flex-end;
+      align-items: center;
       gap: 12px;
       padding: 0 16px;
       border-bottom: 1px solid #1e293b;
@@ -35,9 +35,6 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .icon-btn:hover {
@@ -55,22 +52,22 @@
       flex: 1;
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      grid-template-rows: repeat(2, 1fr);
+      grid-auto-rows: 1fr;
       gap: 18px;
       padding: 20px;
       background: #020617;
     }
 
     .game-btn {
-      background: #020617;
       border: none;
       border-radius: 18px;
       cursor: pointer;
       min-height: 280px;
       display: flex;
       flex-direction: column;
-      position: relative;
       overflow: hidden;
+      position: relative;
+      background: #020617;
       transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
@@ -139,8 +136,8 @@
       height: 50px;
       background: #020617;
       display: flex;
-      align-items: center;
       justify-content: flex-end;
+      align-items: center;
       gap: 10px;
       padding: 0 15px;
       border-bottom: 1px solid #1e293b;
@@ -158,11 +155,6 @@
 
     .top-bar button:hover {
       background: #334155;
-    }
-
-    .game-container {
-      flex: 1;
-      background: black;
     }
 
     iframe {
@@ -231,30 +223,42 @@
   </div>
 
   <div class="game-grid">
+
     <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/blockblast')">
-      <img src="game1.png"><div class="game-title">Block Blast</div>
+      <img src="game1.png">
+      <div class="game-title">Block Blast</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyAW2mW4PFWaL-rMtDJgqiwL0OxsMwtBoiaFgeS_p0_f6VesYcbHDBlxoVBylXcwWrJGg/exec')">
-      <img src="game2.png"><div class="game-title">Learn to Fly 1</div>
+      <img src="game2.png">
+      <div class="game-title">Learn to Fly 1</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbyQ8tw1lAF6zuhWGKqG4hys1Jyw2DEPVK8VapKP-BZsAPqvrRgYThV1bPpT7MYzj3kdHw/exec')">
-      <img src="game4.png"><div class="game-title">Learn to Fly 2</div>
+      <img src="game4.png">
+      <div class="game-title">Learn to Fly 2</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('https://script.google.com/a/macros/tiftschools.com/s/AKfycbz8B4YTMrlWe7ul3V8pbgwG4vISWcoX71Y165LYedQWooJtMs8Ox3A9vyXUhEjCiqL-/exec')">
-      <img src="game5.png"><div class="game-title">Learn to Fly 3</div>
+      <img src="game5.png">
+      <div class="game-title">Learn to Fly 3</div>
     </button>
 
     <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/trex')">
-      <img src="game3.png"><div class="game-title">Dinosaur Game</div>
+      <img src="game2.png">
+      <div class="game-title">Dinosaur Game</div>
     </button>
 
-    <!-- ✅ NEW GAME -->
     <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/stack')">
-      <img src="game6.png"><div class="game-title">Stack</div>
+      <img src="game6.png">
+      <div class="game-title">Stack</div>
     </button>
+
+    <button class="game-btn" onclick="loadGame('https://kirbscozycavern.neocities.org/deltarune/')">
+      <img src="game7.png">
+      <div class="game-title">Deltarune</div>
+    </button>
+
   </div>
 </div>
 
@@ -263,12 +267,10 @@
   <div class="top-bar">
     <button onclick="goBack()">Go Back</button>
   </div>
-  <div class="game-container">
-    <iframe id="gameFrame"></iframe>
-  </div>
+  <iframe id="gameFrame"></iframe>
 </div>
 
-<!-- ===== SETTINGS MODALS ===== -->
+<!-- ===== SETTINGS / TAB CLOAK ===== -->
 <div class="modal" id="settingsModal">
   <div class="modal-box">
     <h3>Settings</h3>
