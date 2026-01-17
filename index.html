@@ -6,12 +6,32 @@
   <link rel="icon" href="https://www.google.com/favicon.ico">
 
   <style>
+    /* ===== GENERAL BODY ===== */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #0f172a;
       color: white; /* default text white */
       height: 100vh;
+    }
+
+    /* Force all text white for everything */
+    body, h1, h2, h3, h4, h5, h6, p, div, span, button, label {
+      color: white !important;
+    }
+
+    /* Input text */
+    input {
+      color: white !important;
+      background: #1e293b;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 8px;
+    }
+
+    /* Input placeholder text */
+    input::placeholder {
+      color: #cbd5e1 !important;
     }
 
     /* ===== TOP BAR (GRID ONLY) ===== */
@@ -24,7 +44,6 @@
       gap: 12px;
       padding: 0 16px;
       border-bottom: 1px solid #1e293b;
-      color: white;
     }
 
     .icon-btn {
@@ -70,7 +89,7 @@
       position: relative;
       background: #020617;
       transition: transform 0.12s ease, box-shadow 0.12s ease;
-      color: white; /* text white inside buttons */
+      color: white;
     }
 
     .game-btn:hover {
@@ -145,7 +164,6 @@
       gap: 10px;
       padding: 0 15px;
       border-bottom: 1px solid #1e293b;
-      color: white;
     }
 
     .top-bar button {
@@ -187,15 +205,6 @@
       width: 280px;
       text-align: center;
       color: white;
-    }
-
-    .modal-box input {
-      width: 100%;
-      padding: 8px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: none;
-      color: black; /* input text black for readability */
     }
 
     .settings-btn {
