@@ -1,234 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My GitHub Games</title>
-  <link rel="icon" href="https://www.google.com/favicon.ico">
+<meta charset="UTF-8">
+<title>My GitHub Games</title>
+<link rel="icon" href="https://www.google.com/favicon.ico">
 
-  <style>
-    /* ===== GENERAL BODY ===== */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white; /* default text white */
-      height: 100vh;
-    }
+<style>
+:root {
+  --button-text-color: white; /* default text color */
+}
 
-    /* Force all text white for everything */
-    body, h1, h2, h3, h4, h5, h6, p, div, span, button, label {
-      color: white !important;
-    }
+/* ===== GENERAL BODY ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  height: 100vh;
+}
 
-    /* Input text */
-    input {
-      color: white !important;
-      background: #1e293b;
-      border: none;
-      border-radius: 8px;
-      padding: 6px 8px;
-    }
+/* Input text */
+input {
+  color: white !important;
+  background: #1e293b;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 8px;
+}
 
-    /* Input placeholder text */
-    input::placeholder {
-      color: #cbd5e1 !important;
-    }
+/* Placeholder text */
+input::placeholder {
+  color: #cbd5e1 !important;
+}
 
-    /* ===== TOP BAR (GRID ONLY) ===== */
-    .grid-top-bar {
-      height: 48px;
-      background: #020617;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 12px;
-      padding: 0 16px;
-      border-bottom: 1px solid #1e293b;
-    }
+/* ===== TOP BAR (GRID ONLY) ===== */
+.grid-top-bar {
+  height: 48px;
+  background: #020617;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border-bottom: 1px solid #1e293b;
+}
 
-    .icon-btn {
-      background: #1e293b;
-      border: none;
-      color: white;
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 18px;
-    }
+.icon-btn {
+  background: #1e293b;
+  border: none;
+  color: white;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+}
 
-    .icon-btn:hover {
-      background: #334155;
-    }
+.icon-btn:hover {
+  background: #334155;
+}
 
-    /* ===== GRID VIEW ===== */
-    .grid-wrapper {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+/* ===== GRID VIEW ===== */
+.grid-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-    .game-grid {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      grid-auto-rows: 1fr;
-      gap: 18px;
-      padding: 20px;
-      background: #020617;
-    }
+.game-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 18px;
+  padding: 20px;
+  background: #020617;
+}
 
-    .game-btn {
-      border: none;
-      border-radius: 18px;
-      cursor: pointer;
-      min-height: 280px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-      background: #020617;
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
-      color: white;
-    }
+.game-btn {
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  background: #020617;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
 
-    .game-btn:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow:
-        0 0 18px rgba(56,189,248,0.45),
-        0 0 35px rgba(56,189,248,0.25);
-    }
+.game-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow:
+    0 0 18px rgba(56,189,248,0.45),
+    0 0 35px rgba(56,189,248,0.25);
+}
 
-    .game-btn:active {
-      transform: scale(0.97);
-    }
+.game-btn:active {
+  transform: scale(0.97);
+}
 
-    .game-btn::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -80%;
-      width: 50%;
-      height: 200%;
-      background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,0.25),
-        transparent
-      );
-      transform: rotate(25deg);
-    }
+.game-btn::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.25),
+    transparent
+  );
+  transform: rotate(25deg);
+}
 
-    .game-btn:hover::before {
-      animation: shine 0.8s ease forwards;
-    }
+.game-btn:hover::before {
+  animation: shine 0.8s ease forwards;
+}
 
-    @keyframes shine {
-      from { left: -80%; }
-      to { left: 130%; }
-    }
+@keyframes shine {
+  from { left: -80%; }
+  to { left: 130%; }
+}
 
-    .game-btn img {
-      width: 100%;
-      height: 84%;
-      object-fit: cover;
-    }
+.game-btn img {
+  width: 100%;
+  height: 84%;
+  object-fit: cover;
+}
 
-    .game-title {
-      height: 16%;
-      background: rgba(2,6,23,0.95);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-      font-weight: bold;
-      text-align: center;
-      color: white;
-    }
+.game-title {
+  height: 16%;
+  background: rgba(2,6,23,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+  color: var(--button-text-color);
+}
 
-    /* ===== GAME VIEW ===== */
-    .game-view {
-      display: none;
-      flex-direction: column;
-      height: 100vh;
-      background: black;
-      color: white;
-    }
+/* ===== GAME VIEW ===== */
+.game-view {
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+  background: black;
+}
 
-    .top-bar {
-      height: 50px;
-      background: #020617;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      padding: 0 15px;
-      border-bottom: 1px solid #1e293b;
-    }
+.top-bar {
+  height: 50px;
+  background: #020617;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 0 15px;
+  border-bottom: 1px solid #1e293b;
+}
 
-    .top-bar button {
-      background: #1e293b;
-      border: none;
-      color: white;
-      padding: 6px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.top-bar button {
+  background: #1e293b;
+  border: none;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-    .top-bar button:hover {
-      background: #334155;
-    }
+.top-bar button:hover {
+  background: #334155;
+}
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
 
-    /* ===== MODALS ===== */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      color: white;
-    }
+/* ===== MODALS ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  color: white;
+}
 
-    .modal-box {
-      background: #020617;
-      padding: 20px;
-      border-radius: 14px;
-      width: 280px;
-      text-align: center;
-      color: white;
-    }
+.modal-box {
+  background: #020617;
+  padding: 20px;
+  border-radius: 14px;
+  width: 280px;
+  text-align: center;
+}
 
-    .settings-btn {
-      width: 100%;
-      padding: 8px;
-      background: #1e293b;
-      border: none;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-bottom: 8px;
-    }
+.settings-btn {
+  width: 100%;
+  padding: 8px;
+  background: #1e293b;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
 
-    .settings-btn:hover {
-      background: #334155;
-    }
+.settings-btn:hover {
+  background: #334155;
+}
 
-    .close-btn {
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
-  </style>
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
 
@@ -291,6 +287,10 @@
 <div class="modal" id="settingsModal">
   <div class="modal-box">
     <h3>Settings</h3>
+
+    <label for="textColorPicker">Text Color:</label>
+    <input type="color" id="textColorPicker" value="#ffffff" style="margin-bottom: 12px;">
+
     <button class="settings-btn" onclick="openCloak()">Tab Cloak</button>
     <button class="close-btn" onclick="closeSettings()">Close</button>
   </div>
@@ -306,40 +306,45 @@
 </div>
 
 <script>
-  function loadGame(url) {
-    grid.style.display = "none";
-    gameView.style.display = "flex";
-    gameFrame.src = url;
-  }
+const textColorPicker = document.getElementById("textColorPicker");
+textColorPicker.addEventListener("input", () => {
+  document.documentElement.style.setProperty('--button-text-color', textColorPicker.value);
+});
 
-  function goBack() {
-    gameView.style.display = "none";
-    grid.style.display = "flex";
-    gameFrame.src = "";
-  }
+function loadGame(url) {
+  grid.style.display = "none";
+  gameView.style.display = "flex";
+  gameFrame.src = url;
+}
 
-  function openSettings() {
-    settingsModal.style.display = "flex";
-  }
+function goBack() {
+  gameView.style.display = "none";
+  grid.style.display = "flex";
+  gameFrame.src = "";
+}
 
-  function closeSettings() {
-    settingsModal.style.display = "none";
-  }
+function openSettings() {
+  settingsModal.style.display = "flex";
+}
 
-  function openCloak() {
-    closeSettings();
-    cloakModal.style.display = "flex";
-  }
+function closeSettings() {
+  settingsModal.style.display = "none";
+}
 
-  function closeCloak() {
-    cloakModal.style.display = "none";
-  }
+function openCloak() {
+  closeSettings();
+  cloakModal.style.display = "flex";
+}
 
-  function applyCloak() {
-    const name = cloakInput.value;
-    if (name) document.title = name;
-    closeCloak();
-  }
+function closeCloak() {
+  cloakModal.style.display = "none";
+}
+
+function applyCloak() {
+  const name = cloakInput.value;
+  if (name) document.title = name;
+  closeCloak();
+}
 </script>
 
 </body>
