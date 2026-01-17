@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Game Hub</title>
-
 <style>
 body{
   margin:0;
@@ -115,20 +114,7 @@ iframe{
   color:white;
 }
 
-/* DONE button */
-#doneBtn{
-  position:fixed;
-  top:10px;
-  right:10px;
-  background:#10b981;
-  color:white;
-  padding:10px 14px;
-  border-radius:6px;
-  cursor:pointer;
-  display:none;
-  z-index:10000;
-}
-
+/* DONE modal */
 #doneModal{
   position:fixed;
   inset:0;
@@ -159,8 +145,11 @@ iframe{
   <button onclick="openBuilder()">➕ Add Game</button>
 </div>
 
-<!-- Game grid -->
+<!-- Button Menu / Game Grid -->
 <div class="grid" id="grid"></div>
+
+<!-- DONE Button in menu -->
+<button id="doneBtn" style="display:none;margin:10px;" onclick="showDoneModal()">✅ DONE</button>
 
 <!-- Game viewer -->
 <div class="viewer" id="viewer">
@@ -177,14 +166,11 @@ iframe{
     <input id="bName" placeholder="Game Name">
     <input id="bURL" placeholder="Game URL">
     <input id="bImg" placeholder="Image number (1-12)">
-    <button onclick="generateCode()">Generate Code</button>
+    <button onclick="generateCode()">Generate Button</button>
     <button onclick="closeBuilder()">Close</button>
-    <textarea id="codeOut" readonly placeholder="Generated code will appear here..."></textarea>
+    <textarea id="codeOut" readonly placeholder="Generated buttons will appear here..."></textarea>
   </div>
 </div>
-
-<!-- DONE button -->
-<div id="doneBtn" onclick="showDoneModal()">✅ DONE</div>
 
 <!-- DONE modal -->
 <div id="doneModal">
@@ -205,7 +191,7 @@ const doneBtn=document.getElementById("doneBtn");
 const doneModal=document.getElementById("doneModal");
 const doneText=document.getElementById("doneText");
 
-// Games array (images in root)
+// Preloaded games
 const games=[
   {t:"Block Blast",u:"https://kirbscozycavern.neocities.org/blockblast",i:"game1.png"},
   {t:"Learn to Fly 1",u:"https://script.google.com/a/macros/tiftschools.com/s/AKfycbyAW2mW4PFWaL-rMtDJgqiwL0OxsMwtBoiaFgeS_p0_f6VesYcbHDBlxoVBylXcwWrJGg/exec",i:"game2.png"},
@@ -218,20 +204,30 @@ const games=[
   {t:"Minecraft",u:"https://kirbscozycavern.neocities.org/minecraft/EaglercraftX_1.8_u50_Offline_Signed",i:"game9.png"}
 ];
 
-// Render grid
-function render(q=""){
+// Render grid from array
+function render(){
   grid.innerHTML="";
-  games.filter(g=>g.t.toLowerCase().includes(q.toLowerCase()))
-  .forEach(g=>{
-    const div=document.createElement("div");
-    div.className="game";
-    div.innerHTML=`<img src="${g.i}"><div class="title">${g.t}</div>`;
-    div.onclick=()=>play(g);
-    grid.appendChild(div);
+  games.forEach(g=>{
+    const btn=document.createElement("button");
+    btn.className="game";
+    btn.innerHTML=`<img src="${g.i}"><div class="title">${g.t}</div>`;
+    btn.onclick=()=>play(g);
+    grid.appendChild(btn);
   });
 }
 
-function search(val){render(val);}
+// Search
+function search(val){
+  grid.innerHTML="";
+  games.filter(g=>g.t.toLowerCase().includes(val.toLowerCase()))
+  .forEach(g=>{
+    const btn=document.createElement("button");
+    btn.className="game";
+    btn.innerHTML=`<img src="${g.i}"><div class="title">${g.t}</div>`;
+    btn.onclick=()=>play(g);
+    grid.appendChild(btn);
+  });
+}
 
 // Play game
 function play(g){
@@ -240,7 +236,7 @@ function play(g){
   frame.src=g.u;
 }
 
-// Back button
+// Back
 function back(){
   viewer.style.display="none";
   grid.style.display="grid";
@@ -251,44 +247,43 @@ function back(){
 function openBuilder(){builderModal.style.display="flex";}
 function closeBuilder(){builderModal.style.display="none";}
 
-// Generate code (append to old code)
+// Generate button
 function generateCode(){
   if(!bName.value||!bURL.value||!bImg.value) return;
 
-  const newCode = `{ t:"${bName.value}", u:"${bURL.value}", i:"game${bImg.value}.png" },`;
+  const newButton = {t:bName.value, u:bURL.value, i:`game${bImg.value}.png`};
+  games.push(newButton);
+  render();
 
-  if(codeOut.value.trim()===""){
-    codeOut.value = newCode;
-  } else {
-    codeOut.value += "\n" + newCode;
-  }
+  // Show DONE button
+  doneBtn.style.display="inline-block";
 
-  // Show DONE button when at least one game is generated
-  doneBtn.style.display="block";
+  // Update codeOut textarea
+  let htmlCode = "";
+  games.forEach(g=>{
+    htmlCode += `<button class="game" onclick="play({t:'${g.t}', u:'${g.u}', i:'${g.i}'})"><img src="${g.i}"><div class="title">${g.t}</div></button>\n`;
+  });
+  codeOut.value = htmlCode;
 
   // Clear inputs
-  bName.value="";
-  bURL.value="";
-  bImg.value="";
+  bName.value=""; bURL.value=""; bImg.value="";
 }
 
-// DONE button function
+// Show DONE modal
 function showDoneModal(){
   doneText.value = codeOut.value;
   doneModal.style.display="flex";
 }
 
-// Close DONE modal when clicked outside textarea
+// Close DONE modal on outside click
 doneModal.addEventListener("click",(e)=>{
-  if(e.target===doneModal){
-    doneModal.style.display="none";
-  }
+  if(e.target===doneModal) doneModal.style.display="none";
 });
 
-// Copy DONE modal text
+// Copy on double-click
 doneText.addEventListener("dblclick",()=>{
   navigator.clipboard.writeText(doneText.value);
-  alert("Code copied to clipboard!");
+  alert("Code copied!");
 });
 
 // Init
